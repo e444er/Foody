@@ -1,4 +1,4 @@
-package com.droidli.foody
+package com.droidli.foody.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +8,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.droidli.foody.R
 import com.droidli.foody.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding by viewBinding(ActivityMainBinding::bind)
@@ -34,4 +37,3 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
-//https://api.spoonacular.com/recipes/complexSearch?number=1&apiKey=1ac5a43d6d7742adb2e726a26104071a&type=drink&diet=vegan&addRecipeInformation=true&fillIngredients=true

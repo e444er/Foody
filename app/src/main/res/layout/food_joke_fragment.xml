@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/red"
-    tools:context=".FoodJokeFragment">
+    tools:context=".ui.fragments.foodjoke.FoodJokeFragment">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

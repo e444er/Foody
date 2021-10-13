@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/purple_200"
-    tools:context=".FavoriteRecipesFragment">
+    tools:context=".ui.fragments.favorite.FavoriteRecipesFragment">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
