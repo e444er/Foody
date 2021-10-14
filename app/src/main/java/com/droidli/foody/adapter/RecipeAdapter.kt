@@ -43,6 +43,8 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.MyViewHolder>() {
             }
             Glide.with(root)
                 .load(currentRecipe.image)
+                .error(R.drawable.ic_terrain)
+                .placeholder(R.drawable.ic_terrain)
                 .into(recipesImageView)
         }
     }

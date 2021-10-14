@@ -9,7 +9,11 @@
         android:id="@+id/recipesFragment"
         android:name="com.droidli.foody.ui.fragments.recipe.RecipesFragment"
         android:label="Recipes"
-        tools:layout="@layout/recipes_fragment" />
+        tools:layout="@layout/recipes_fragment" >
+        <action
+            android:id="@+id/action_recipesFragment_to_recipeBottomSheet"
+            app:destination="@id/recipeBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteRecipesFragment"
         android:name="com.droidli.foody.ui.fragments.favorite.FavoriteRecipesFragment"
@@ -20,4 +24,13 @@
         android:name="com.droidli.foody.ui.fragments.foodjoke.FoodJokeFragment"
         android:label="Food Joke"
         tools:layout="@layout/food_joke_fragment" />
+    <dialog
+        android:id="@+id/recipeBottomSheet"
+        android:name="com.droidli.foody.ui.fragments.recipe.bottomsheet.RecipeBottomSheet"
+        android:label="recipe_bottom_sheet"
+        tools:layout="@layout/recipe_bottom_sheet" >
+        <action
+            android:id="@+id/action_recipeBottomSheet_to_recipesFragment"
+            app:destination="@id/recipesFragment" />
+    </dialog>
 </navigation>

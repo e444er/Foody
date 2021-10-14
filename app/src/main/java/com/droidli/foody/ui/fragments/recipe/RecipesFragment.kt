@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.droidli.foody.R
@@ -30,6 +31,9 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerview()
         readDatabase()
+        binding.recipeFlo.setOnClickListener {
+            findNavController().navigate(R.id.action_recipesFragment_to_recipeBottomSheet)
+        }
     }
 
     private fun setupRecyclerview() {
@@ -55,6 +59,8 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment) {
     }
 
     private fun requestApiData() {
+//        mainViewModel.recipeResponse.observe(viewLifecycleOwner,{
+//            noInternetError()})
         mainViewModel.getRecipes(recipesViewModel.applyQueries())
         mainViewModel.recipeResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
@@ -65,6 +71,7 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment) {
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
                     loadDataFromCache()
+                    noInternetError()
                     Toast.makeText(requireContext(),
                         response.message.toString(),
                         Toast.LENGTH_SHORT)
@@ -77,6 +84,12 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment) {
         })
     }
 
+    private fun noInternetError(){
+        if (loadDataFromCache() != null){
+            binding.errorImageView.visibility = View.VISIBLE
+            binding.errorTextView.visibility = View.VISIBLE
+        }
+    }
     private fun loadDataFromCache() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observe(viewLifecycleOwner, { database ->
