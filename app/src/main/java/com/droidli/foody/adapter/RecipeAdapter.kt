@@ -2,53 +2,52 @@ package com.droidli.foody.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.droidli.foody.R
 import com.droidli.foody.databinding.RecipesRowLayoutBinding
-import com.droidli.foody.models.FoodRecipe
-import com.droidli.foody.models.Result
 import com.droidli.foody.utils.RecipesDiffUtil
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.MyViewHolder>() {
 
-    private var recipes = emptyList<Result>()
+    class MyViewHolder(val binding: RecipesRowLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    class MyViewHolder(private val binding: RecipesRowLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(result: Result) {
-            binding.result = result
-            binding.executePendingBindings()
-        }
-
-        companion object {
-            fun from(parent: ViewGroup): MyViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = RecipesRowLayoutBinding.inflate(layoutInflater, parent, false)
-                return MyViewHolder(binding)
-            }
-        }
-
-    }
+    val differ = AsyncListDiffer(this, RecipesDiffUtil())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder.from(parent)
+        return MyViewHolder(RecipesRowLayoutBinding.inflate(LayoutInflater.from(parent.context),
+            parent,
+            false))
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentRecipe = recipes[position]
-        holder.bind(currentRecipe)
+        val currentRecipe = differ.currentList[position]
+        holder.binding.apply {
+            titleTextView.text = currentRecipe.title
+            descriptionTextView.text = currentRecipe.summary
+            heartTextView.text = currentRecipe.aggregateLikes.toString()
+            clockTextView.text = currentRecipe.readyInMinutes.toString()
+            if (!currentRecipe.vegan) {
+                leafTextView.setTextColor(ContextCompat.getColor(holder.itemView.context,
+                    R.color.Gray))
+                leafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
+                    R.color.Gray))
+            } else {
+                leafTextView.setTextColor(ContextCompat.getColor(holder.itemView.context,
+                    R.color.green))
+                leafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
+                    R.color.green))
+            }
+            Glide.with(root)
+                .load(currentRecipe.image)
+                .into(recipesImageView)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return recipes.size
-    }
+    override fun getItemCount() = differ.currentList.size
 
-    fun setData(newData: FoodRecipe) {
-        val recipesDiffUtil =
-            RecipesDiffUtil(recipes, newData.results)
-        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
-        recipes = newData.results
-        diffUtilResult.dispatchUpdatesTo(this)
-    }
+
 }
