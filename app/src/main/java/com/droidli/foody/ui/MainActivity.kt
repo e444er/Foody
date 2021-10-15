@@ -2,6 +2,7 @@ package com.droidli.foody.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -29,6 +30,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 R.id.foodJokeFragment
             )
         )
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when (destination.id) {
+                R.id.detailFragment -> {
+                    binding.bottomNavigationView.isVisible = false
+                }
+                else -> {
+                    binding.bottomNavigationView.isVisible = true
+                }
+            }
+        }
         binding.bottomNavigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }

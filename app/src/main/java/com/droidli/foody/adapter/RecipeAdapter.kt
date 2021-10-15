@@ -3,6 +3,7 @@ package com.droidli.foody.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -46,6 +47,10 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.MyViewHolder>() {
                 .error(R.drawable.ic_terrain)
                 .placeholder(R.drawable.ic_terrain)
                 .into(recipesImageView)
+        }
+        holder.binding.recipeRowLayout.setOnClickListener {
+            holder.itemView.findNavController()
+                .navigate(R.id.action_recipesFragment_to_detailFragment)
         }
     }
 

@@ -17,6 +17,9 @@
             android:name="backFromBottomSheet"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_recipesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteRecipesFragment"
@@ -37,4 +40,9 @@
             android:id="@+id/action_recipeBottomSheet_to_recipesFragment"
             app:destination="@id/recipesFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.droidli.foody.ui.fragments.detailfragment.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/detail_fragment"/>
 </navigation>
