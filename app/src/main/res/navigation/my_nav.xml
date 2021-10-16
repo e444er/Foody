@@ -43,6 +43,10 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.droidli.foody.ui.fragments.detailfragment.DetailFragment"
-        android:label="DetailFragment"
-        tools:layout="@layout/detail_fragment"/>
+        android:label="Detail"
+        tools:layout="@layout/detail_fragment">
+        <argument
+            android:name="result"
+            app:argType="com.droidli.foody.models.Result" />
+    </fragment>
 </navigation>

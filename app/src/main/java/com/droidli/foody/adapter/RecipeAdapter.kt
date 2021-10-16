@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.droidli.foody.R
 import com.droidli.foody.databinding.RecipesRowLayoutBinding
+import com.droidli.foody.ui.fragments.recipe.RecipesFragmentDirections
 import com.droidli.foody.utils.RecipesDiffUtil
+import org.jsoup.Jsoup
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.MyViewHolder>() {
 
@@ -28,15 +30,13 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.MyViewHolder>() {
         val currentRecipe = differ.currentList[position]
         holder.binding.apply {
             titleTextView.text = currentRecipe.title
-            descriptionTextView.text = currentRecipe.summary
+            currentRecipe.summary.let{
+                val summary = Jsoup.parse(it).text()
+                descriptionTextView.text = summary
+            }
             heartTextView.text = currentRecipe.aggregateLikes.toString()
             clockTextView.text = currentRecipe.readyInMinutes.toString()
-            if (!currentRecipe.vegan) {
-                leafTextView.setTextColor(ContextCompat.getColor(holder.itemView.context,
-                    R.color.Gray))
-                leafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
-                    R.color.Gray))
-            } else {
+            if (currentRecipe.vegan == true) {
                 leafTextView.setTextColor(ContextCompat.getColor(holder.itemView.context,
                     R.color.green))
                 leafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
@@ -49,8 +49,9 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.MyViewHolder>() {
                 .into(recipesImageView)
         }
         holder.binding.recipeRowLayout.setOnClickListener {
-            holder.itemView.findNavController()
-                .navigate(R.id.action_recipesFragment_to_detailFragment)
+            val action = RecipesFragmentDirections
+                .actionRecipesFragmentToDetailFragment(currentRecipe)
+            holder.itemView.findNavController().navigate(action)
         }
     }
 
