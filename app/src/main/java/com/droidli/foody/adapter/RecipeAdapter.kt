@@ -36,18 +36,27 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.MyViewHolder>() {
             }
             heartTextView.text = currentRecipe.aggregateLikes.toString()
             clockTextView.text = currentRecipe.readyInMinutes.toString()
-            if (currentRecipe.vegan == true) {
+            if (!currentRecipe.vegan) {
+                leafTextView.setTextColor(ContextCompat.getColor(holder.itemView.context,
+                    R.color.Gray))
+                leafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
+                    R.color.Gray))
+            }else {
                 leafTextView.setTextColor(ContextCompat.getColor(holder.itemView.context,
                     R.color.green))
                 leafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
                     R.color.green))
             }
+
             Glide.with(root)
                 .load(currentRecipe.image)
                 .error(R.drawable.ic_terrain)
                 .placeholder(R.drawable.ic_terrain)
                 .into(recipesImageView)
         }
+        /**
+         * Click Listener
+         * */
         holder.binding.recipeRowLayout.setOnClickListener {
             val action = RecipesFragmentDirections
                 .actionRecipesFragmentToDetailFragment(currentRecipe)

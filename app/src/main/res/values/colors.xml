@@ -15,6 +15,7 @@
     <color name="red">#FF4646</color>
     <color name="yellow">#FFC114</color>
     <color name="green">#00C980</color>
+    <color name="darker">#151B20</color>
 
     // Custom Chip Style
     <color name="checkedChipBackgroundColor">#206200EA</color>
@@ -25,4 +26,8 @@
     <color name="actionBarBackgroundColor">@color/purple_500</color>
     <color name="strokeColor">@color/mediumGray</color>
     <color name="cardBackground">@color/white</color>
+
+    <color name="statusBarColor">@color/purple_500</color>
+    <color name="favoriteStatusBarColor">@color/darker</color>
+    <color name="favoriteActionBarColor">@color/darker</color>
 </resources>
