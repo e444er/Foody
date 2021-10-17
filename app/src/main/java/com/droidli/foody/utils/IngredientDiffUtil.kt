@@ -8,7 +8,7 @@ class IngredientDiffUtil : DiffUtil.ItemCallback<ExtendedIngredient>() {
         oldItem: ExtendedIngredient,
         newItem: ExtendedIngredient,
     ): Boolean {
-        return oldItem.name == newItem.name
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(

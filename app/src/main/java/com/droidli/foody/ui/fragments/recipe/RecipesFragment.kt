@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.droidli.foody.R
 import com.droidli.foody.adapter.RecipeAdapter
+import com.droidli.foody.data.database.entities.RecipesEntity
 import com.droidli.foody.databinding.RecipesFragmentBinding
 import com.droidli.foody.utils.NetworkListener
 import com.droidli.foody.utils.NetworkResult
@@ -105,6 +107,7 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
                 if (database.isNotEmpty() && !args.backFromBottomSheet) {
                     mAdapter.differ.submitList(database[0].foodRecipe.results)
                     hideShimmerEffect()
+//                    noDataInternet(database)
                 } else {
                     requestApiData()
                 }
@@ -113,8 +116,6 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
     }
 
     private fun requestApiData() {
-//        mainViewModel.recipeResponse.observe(viewLifecycleOwner,{
-//            noInternetError()})
         mainViewModel.getRecipes(recipesViewModel.applyQueries())
         mainViewModel.recipeResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
@@ -125,7 +126,6 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
                     loadDataFromCache()
-                    noInternetError()
                     Toast.makeText(requireContext(),
                         response.message.toString(),
                         Toast.LENGTH_SHORT)
@@ -136,13 +136,6 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
                 }
             }
         })
-    }
-
-    private fun noInternetError() {
-        if (loadDataFromCache() != null) {
-            binding.errorImageView.visibility = View.VISIBLE
-            binding.errorTextView.visibility = View.VISIBLE
-        }
     }
 
     private fun searchApiData(searchView: String) {
@@ -172,6 +165,7 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
     private fun loadDataFromCache() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observe(viewLifecycleOwner, { database ->
+                noDataInternet(database)
                 if (database.isNotEmpty()) {
                     mAdapter.differ.submitList(database[0].foodRecipe.results)
                 }
@@ -179,11 +173,24 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
         }
     }
 
+
     private fun showShimmer() {
         binding.shimmerRecyclerView.showShimmer()
     }
 
     private fun hideShimmerEffect() {
         binding.shimmerRecyclerView.hideShimmer()
+    }
+
+    private fun noDataInternet(database: List<RecipesEntity>?) {
+        if (database.isNullOrEmpty()) {
+            binding.errorImageView.isVisible = true
+            binding.errorTextView.isVisible = true
+            binding.shimmerRecyclerView.isVisible = false
+        } else {
+            binding.errorImageView.isVisible = false
+            binding.errorTextView.isVisible = false
+            binding.shimmerRecyclerView.isVisible = true
+        }
     }
 }

@@ -89,13 +89,16 @@ class RecipesViewModel @Inject constructor(
         return queries
     }
 
+
     fun showNetworkStatus() {
         if (!networkStatus) {
-            Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "No Internet Connection.", Toast.LENGTH_SHORT).show()
             saveBackOnline(true)
         } else if (networkStatus) {
-            Toast.makeText(context, "We're back online", Toast.LENGTH_SHORT).show()
-            saveBackOnline(false)
+            if (backOnline) {
+                Toast.makeText(context, "We're back online.", Toast.LENGTH_SHORT).show()
+                saveBackOnline(false)
+            }
         }
     }
 }

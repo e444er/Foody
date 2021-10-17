@@ -5,7 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.*
-import com.droidli.foody.data.database.RecipesEntity
+import com.droidli.foody.data.database.entities.FavoritesEntity
+import com.droidli.foody.data.database.entities.RecipesEntity
 import com.droidli.foody.data.repository.Repository
 import com.droidli.foody.models.FoodRecipe
 import com.droidli.foody.utils.NetworkResult
@@ -24,11 +25,29 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     /** ROOM DATABASE */
-    val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readDatabase().asLiveData()
+    val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
+    val readFavoritesEntity: LiveData<List<FavoritesEntity>> =
+        repository.local.readFavoriteEntity().asLiveData()
+
 
     private fun insertRecipes(recipesEntity: RecipesEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertRecipes(recipesEntity)
+        }
+
+    fun insertFavoritesEntity(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavoritesEntity(favoritesEntity)
+        }
+
+    fun deleteFavoritesEntity(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavoritesEntity(favoritesEntity)
+        }
+
+    private fun deleteAllFavoritesEntity() =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavoritesEntity()
         }
 
     /** RETROFIT */
@@ -93,7 +112,7 @@ class MainViewModel @Inject constructor(
             }
             response.isSuccessful -> {
                 val foodRecipe = response.body()
-                return NetworkResult.Success(foodRecipe)
+                return NetworkResult.Success(foodRecipe!!)
             }
             else -> {
                 return NetworkResult.Error(response.message())
@@ -111,7 +130,7 @@ class MainViewModel @Inject constructor(
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> true
+            else -> false
         }
     }
 

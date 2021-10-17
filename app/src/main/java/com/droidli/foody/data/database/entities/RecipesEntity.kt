@@ -1,4 +1,4 @@
-package com.droidli.foody.data.database
+package com.droidli.foody.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
