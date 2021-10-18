@@ -5,20 +5,26 @@
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/drawable/gradinet_overview.xml" value="0.14907407407407408" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/drawable/ic_food_joke_background_light.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/drawable/ic_foreground.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/detail_fragment.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/favorite_recipes_fragment.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/favorite_recipes_row_layout.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/food_joke_fragment.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/ingredient_row_layout.xml" value="0.22641509433962265" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/ingredients_fragment.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/instructions_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/overview_fragment.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/overview_fragment.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/placeholder_row_layout.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/recipe_bottom_sheet.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/recipes_fragment.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/layout/recipes_row_layout.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/menu/favorite_recipe_delete_menu.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/menu/food_joke_menu.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/menu/recipes_menu.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Foody/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.20512820512820512" />
       </map>
     </option>
   </component>

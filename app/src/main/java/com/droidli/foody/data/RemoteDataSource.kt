@@ -1,6 +1,7 @@
 package com.droidli.foody.data
 
 import com.droidli.foody.data.network.FoodRecipeApi
+import com.droidli.foody.models.FoodJoke
 import com.droidli.foody.models.FoodRecipe
 import retrofit2.Response
 import javax.inject.Inject
@@ -15,5 +16,9 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun searchRecipes(searchQuery: Map<String, String>): Response<FoodRecipe> {
         return foodRecipeApi.searchRecipe(searchQuery)
+    }
+
+    suspend fun getFoodJoke(apiKey: String): Response<FoodJoke> {
+        return foodRecipeApi.getFoodJoke(apiKey)
     }
 }

@@ -81,7 +81,7 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
             recipesViewModel.backOnline = it
         })
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->

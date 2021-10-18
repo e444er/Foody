@@ -17,6 +17,11 @@
     <color name="green">#00C980</color>
     <color name="darker">#151B20</color>
 
+    <!-- LIGHT THEME -->
+    <color name="backgroundColor">@color/lightGray</color>
+    <color name="placeholderColor">@color/mediumGray</color>
+    <color name="itemColor">@color/darker</color>
+
     // Custom Chip Style
     <color name="checkedChipBackgroundColor">#206200EA</color>
     <color name="chipBackgroundColor">@color/lightGray</color>
@@ -26,8 +31,16 @@
     <color name="actionBarBackgroundColor">@color/purple_500</color>
     <color name="strokeColor">@color/mediumGray</color>
     <color name="cardBackground">@color/white</color>
+    <color name="cardBackgroundLightColor">#00EAE4E4</color>
+    <color name="titleColor">@color/black</color>
+    <color name="descriptionColor">@color/black</color>
 
     <color name="statusBarColor">@color/purple_500</color>
     <color name="favoriteStatusBarColor">@color/darker</color>
     <color name="favoriteActionBarColor">@color/darker</color>
+
+    // Custom BottomNavigationView Style
+    <color name="bottomNavBackground">@color/white</color>
+    <color name="bottomNavItemColor">@color/darkGray</color>
+    <color name="bottomNavCheckedItemColor">@color/purple_500</color>
 </resources>

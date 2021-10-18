@@ -2,6 +2,7 @@ package com.droidli.foody.data.database
 
 import androidx.room.*
 import com.droidli.foody.data.database.entities.FavoritesEntity
+import com.droidli.foody.data.database.entities.FoodJokeEntity
 import com.droidli.foody.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +20,12 @@ interface RecipeDao {
 
     @Query("SELECT * FROM favorite_recipes_table ORDER BY id ASC")
     fun readFavoritesEntity(): Flow<List<FavoritesEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFoodJokeEntity(foodJokeEntity: FoodJokeEntity)
+
+    @Query("SELECT * FROM food_joke_table ORDER BY id ASC")
+    fun readFoodJokeEntity(): Flow<List<FoodJokeEntity>>
 
     @Delete
     suspend fun deleteFavoritesEntity(favoritesEntity: FavoritesEntity)
