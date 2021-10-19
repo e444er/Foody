@@ -43,6 +43,8 @@ class FavoriteRecipeAdapter(
         myViewHolder.add(holder)
         val currentRecipe = differFav.currentList[position]
 
+        saveItemStateOnScroll(holder, currentRecipe)
+
         rootView = holder.binding.root
         holder.binding.apply {
             favoriteTitleTextView.text = currentRecipe.result.title
@@ -57,7 +59,7 @@ class FavoriteRecipeAdapter(
                     R.color.Gray))
                 favoriteLeafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
                     R.color.Gray))
-            }else {
+            } else {
                 favoriteLeafTextView.setTextColor(ContextCompat.getColor(holder.itemView.context,
                     R.color.green))
                 favoriteLeafImageView.setColorFilter(ContextCompat.getColor(holder.itemView.context,
@@ -91,9 +93,17 @@ class FavoriteRecipeAdapter(
                 applySelection(holder, currentRecipe)
                 true
             } else {
-                multiSelection = false
-                false
+                applySelection(holder, currentRecipe)
+                true
             }
+        }
+    }
+
+    private fun saveItemStateOnScroll(holder: MyViewHolder, currentRecipe: FavoritesEntity) {
+        if (selectedRecipes.contains(currentRecipe)) {
+            changeRecipeStyle(holder, R.color.cardview_light_background, R.color.purple_500)
+        } else {
+            changeRecipeStyle(holder, R.color.cardBackground, R.color.strokeColor)
         }
     }
 
@@ -121,6 +131,7 @@ class FavoriteRecipeAdapter(
         when (selectedRecipes.size) {
             0 -> {
                 mActionMode.finish()
+                multiSelection = false
             }
             1 -> {
                 mActionMode.title = "${selectedRecipes.size} item selected"

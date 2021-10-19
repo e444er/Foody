@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
@@ -29,7 +28,6 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
     private var mealTypeChipId = 0
     private var dietTypeChip = DEFAULT_DIET_TYPE
     private var dietTypeChipId = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +82,10 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
     private fun updateChip(chipId: Int, chipGroup: ChipGroup) {
         if (chipId != 0) {
             try {
-                chipGroup.findViewById<Chip>(chipId).isChecked = true
+//                chipGroup.findViewById<Chip>(chipId).isChecked = true
+                val targetView = chipGroup.findViewById<Chip>(chipId)
+                targetView.isChecked = true
+                chipGroup.requestChildFocus(targetView, targetView)
             } catch (e: Exception) {
                 Log.d("RecipesBottomSheet", e.message.toString())
             }

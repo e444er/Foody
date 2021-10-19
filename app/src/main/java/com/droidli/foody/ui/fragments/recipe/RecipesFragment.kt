@@ -93,7 +93,7 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
     }
 
     private fun setupRecyclerview() {
-        binding.shimmerRecyclerView.apply {
+        binding.recyclerview.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -107,7 +107,6 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
                 if (database.isNotEmpty() && !args.backFromBottomSheet) {
                     mAdapter.differ.submitList(database[0].foodRecipe.results)
                     hideShimmerEffect()
-//                    noDataInternet(database)
                 } else {
                     requestApiData()
                 }
@@ -122,6 +121,7 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
                     response.data?.let { mAdapter.differ.submitList(it.results) }
+//                    recipesViewModel.saveMealAndDietType()
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
@@ -173,24 +173,26 @@ class RecipesFragment : Fragment(R.layout.recipes_fragment), SearchView.OnQueryT
         }
     }
 
-
     private fun showShimmer() {
-        binding.shimmerRecyclerView.showShimmer()
+        binding.shimmerFrameLayout.startShimmer()
+        binding.recyclerview.isVisible = false
     }
 
     private fun hideShimmerEffect() {
-        binding.shimmerRecyclerView.hideShimmer()
+        binding.shimmerFrameLayout.stopShimmer()
+        binding.recyclerview.isVisible = true
+        binding.shimmerFrameLayout.isVisible = false
     }
 
     private fun noDataInternet(database: List<RecipesEntity>?) {
         if (database.isNullOrEmpty()) {
             binding.errorImageView.isVisible = true
             binding.errorTextView.isVisible = true
-            binding.shimmerRecyclerView.isVisible = false
+            binding.recyclerview.isVisible = false
         } else {
             binding.errorImageView.isVisible = false
             binding.errorTextView.isVisible = false
-            binding.shimmerRecyclerView.isVisible = true
+            binding.recyclerview.isVisible = true
         }
     }
 }

@@ -21,6 +21,7 @@ import com.droidli.foody.ui.fragments.detailfragment.childfragment.OverviewFragm
 import com.droidli.foody.utils.Constants.Companion.RECIPE_RESULT_KEY
 import com.droidli.foody.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +33,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     private var recipeSaved = false
     private var savedRecipeId = 0
+    private lateinit var menuItem: MenuItem
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,20 +51,23 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         val resultBundle = Bundle()
         resultBundle.putParcelable(RECIPE_RESULT_KEY, args.result)
 
-        val _adapter = PagerAdapter(
+        val pagerAdapter = PagerAdapter(
             resultBundle,
             fragments,
-            titles,
-            activity?.supportFragmentManager!!
+            requireActivity()
         )
-        binding.viewPager.adapter = _adapter
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.viewPager.isUserInputEnabled = false
+        binding.viewPager.adapter = pagerAdapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = titles[position]
+        }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.details_menu, menu)
-        val menuItem = menu.findItem(R.id.save_to_favorite_menu)
-        checkSaveRecipe(menuItem!!)
+        menuItem = menu.findItem(R.id.save_to_favorite_menu)
+        checkSaveRecipe(menuItem)
     }
 
 
@@ -83,8 +88,6 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                         changeMenuItemColor(menuItem, R.color.yellow)
                         savedRecipeId = savedRecipe.id
                         recipeSaved = true
-                    } else {
-                        changeMenuItemColor(menuItem, R.color.white)
                     }
                 }
             } catch (e: Exception) {
@@ -130,5 +133,8 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         item.icon.setTint(ContextCompat.getColor(requireContext(), yellow))
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        changeMenuItemColor(menuItem, R.color.white)
+    }
 }

@@ -1,5 +1,6 @@
 package com.droidli.foody.viewmodels
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@SuppressLint("StaticFieldLeak")
 @HiltViewModel
 class RecipesViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
@@ -57,7 +59,6 @@ class RecipesViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveBackOnline(backOnline)
         }
-
 
     fun applyQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
