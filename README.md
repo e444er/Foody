@@ -7,6 +7,7 @@
 * Kotlin Coroutines with Flow (LiveData)
 * Jetpack Navigation
 * Shimmer
+* Room
 * DataStore
 * Jsoup
 * Dagger Hilt
@@ -29,6 +30,7 @@ To build this project, you require:
 *   [Glide](https://github.com/bumptech/glide)
 *   [Shimmer](https://github.com/facebook/shimmer-android)
 *   [Jsoup](https://github.com/jhy/jsoup)
+*   [Room](https://developer.android.google.cn/jetpack/androidx/releases/room?hl=en)
 *   [DataStore](https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html)
 *   [Viewbindingpropertydelegate](https://github.com/androidbroadcast/ViewBindingPropertyDelegate)
 *   [Retrofit](https://square.github.io/retrofit/)
