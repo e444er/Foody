@@ -10,6 +10,7 @@
 * Room
 * DataStore
 * Jsoup
+* Action Mode
 * Dagger Hilt
 * Kotlin Gradle
 * Build [apk], [aab]
